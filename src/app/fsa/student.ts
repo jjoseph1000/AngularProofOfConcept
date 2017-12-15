@@ -1,6 +1,6 @@
 import {IDayCell} from './daycell';
 
-export interface IProductItem {
+export interface IStudent {
     productId: number;
     productName: string;
     productCode: string;

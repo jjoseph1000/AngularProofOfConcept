@@ -1,22 +1,23 @@
 
 import { Component } from '@angular/core';
-import {ProductService } from './products/product.service';
+import { ProductService } from './products/product.service';
+import { FSAService } from './fsa/fsa.service';
 
 @Component({
   selector: 'pm-root',
   template: `
     <div><h1>{{pageTitle}}</h1>
-      <pm-products></pm-products>
+      <fsa-products></fsa-products>
     </div>
   `,
-  providers: [ProductService]
+  providers: [ProductService,FSAService]
 })
 
 
 
 export class AppComponent {
   
-  constructor(private _productService: ProductService) {  
+  constructor(private _productService: ProductService, private _fsaService: FSAService) {  
   }
 
 
