@@ -15,8 +15,25 @@
                 <h3>Filtered By: {{listFilter}}</h3>
             </div>
         </div>
+        Wada {{products.dayList.length}}
+        <table *ngIf='products && products.dayList.length'>
+            <thead>
+                <tr><td>start</td>
+                    <td>end</td>                
+                    <td *ngFor='let daylist of products.dayList'>
+                            {{daylist.dayText}}
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let daylist of products.dayList'>
+                    <td>{{daylist.dayText}}</td>
+                </tr>
+            </tbody>
+        </table>
+
         <div class="table-responsive">
-            <table class="table" *ngIf='products && products.length'>
+            <table class="table" *ngIf='products && products.productItem.length'>
                 <thead>
                     <tr>
                         <th>
@@ -32,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let product of products'>
+                    <tr *ngFor='let product of products.productItem'>
                         <td>
                             <img *ngIf='showImage' [src]='product.imageUrl'
                              [title]='product.productName | uppercase'

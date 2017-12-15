@@ -1,10 +1,8 @@
+import {IProductItem} from './productitem';
+import {IDayList} from './daylist';
+
 export interface IProduct {
-    productId: number;
-    productName: string;
-    productCode: string;
-    releaseDate: string;
-    price: number;
-    description: string;
-    starRating: number;
-    imageUrl: string;
+    testTitle: string
+    daylist: IDayList[]
+    productItem: IProductItem[]
 }
