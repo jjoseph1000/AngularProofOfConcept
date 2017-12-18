@@ -1,3 +1,7 @@
 export interface IDayList {
-    daytext: string
+    dayText: string
+}
+
+export class DayList implements IDayList {
+    dayText: string
 }

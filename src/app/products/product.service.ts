@@ -12,10 +12,14 @@ export class ProductService {
     constructor(private _http: HttpClient) {
 
     }
+
+    convertRawData(data: any): void {
+        console.log('All: ' + JSON.stringify(data));
+    }
     
     getProducts(): Observable<IProduct> {
         return this._http.get<IProduct>(this._productUrl)
-                .do(data => console.log('All: ' + JSON.stringify(data)))
+                .do(data => this.convertRawData(data))
                 .catch(this.handleError);
     }
 

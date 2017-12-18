@@ -23,9 +23,13 @@ export class ProductListComponent implements OnInit {
         this.showImage = !this.showImage;
     }
 
+    convertRawData(data: IProduct): void {
+        this.products=data;
+    }
+
     ngOnInit(): void {
         this._productService.getProducts()
-            .subscribe(products=>this.products=products,
+            .subscribe(products=>this.convertRawData(products),
                 error=>this.errorMessage=<any>error);
 
         

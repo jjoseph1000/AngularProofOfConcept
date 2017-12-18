@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IEChart } from './echart';
-import {FSAService} from './fsa.service';
+import { IEChart, EChart } from './echart';
+import { IDayList, DayList} from './daylist';
+import { ISpreadsheetRow, SpreadsheetRow } from './spreadsheetrow';
+import { IDayCell, DayCell } from './daycell';
+import { FSAService } from './fsa.service';
 @Component ({
     selector: "fsa-products",
     templateUrl: "./echart-spreadsheet.component.html",
@@ -18,14 +21,18 @@ export class EChartSpreadsheetComponent implements OnInit {
     showImage: boolean = false;
     listFilter: string = 'cart';
     errorMessage: string;
-    echart: IEChart;
+    echart: IEChart = new EChart();
     toggleImage(): void {
         this.showImage = !this.showImage;
     }
 
+    convertRawData(data: IEChart): void {
+        this.echart=data;
+    }
+
     ngOnInit(): void {
         this._fsaService.getEChart()
-            .subscribe(echart=>this.echart=echart,
+            .subscribe(echart=>this.convertRawData(echart),
                 error=>this.errorMessage=<any>error);
 
         

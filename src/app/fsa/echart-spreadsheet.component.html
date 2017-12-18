@@ -15,8 +15,8 @@
                     <h3>Filtered By: {{listFilter}}</h3>
                 </div>
             </div>
-            Wada {{echart.dayList.length}}
-            <table *ngIf='echart && echart.dayList.length'>
+           
+            <table *ngIf='echart && echart.dayList && echart.dayList.length'>
                 <thead>
                     <tr><td>start</td>
                         <td>end</td>                
@@ -26,14 +26,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let daylist of echart.dayList'>
-                        <td>{{daylist.dayText}}</td>
-                    </tr>
+
                 </tbody>
             </table>
     
             <div class="table-responsive">
-                <table class="table" *ngIf='echart && echart.students.length'>
+                <table class="table" *ngIf='echart && echart.rows && echart.rows.length'>
                     <thead>
                         <tr>
                             <th>
@@ -41,26 +39,26 @@
                                     {{showImage ? 'Hide' : 'Show'}} Image
                                 </button>
                             </th>
-                            <th>Product</th>
-                            <th>Code</th>
+                            <th>Student Id</th>
+                            <th>Name</th>
                             <th>Available</th>
                             <th>Price</th>
                             <th>5 Star Rating</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor='let student of echart.students'>
+                        <tr *ngFor='let student of echart.rows'>
                             <td>
                                 <img *ngIf='showImage' [src]='student.imageUrl'
                                  [title]='student.productName | uppercase'
                                  [style.width.px]='imageWidth'
                                  [style.margin.px]='imageMargin'>
                             </td>
-                            <td>{{student.productName}}</td>
-                            <td>{{student.productCode | lowercase}}</td>
+                            <td>{{student.studentId}}</td>
+                            <td>{{student.name}}</td>
                             <td>{{student.releaseDate}}</td>
                             <td>{{student.price | currency:'USD':true:'1.2-2' }}</td>
-                            <td><pm-star [rating]='student.starRating'
+                            <td><pm-star [mainText]='student.studentId' [rating]='student.starRating'
                                     (notify)='onNotify($event)'></pm-star></td>
                         </tr>
                     </tbody>
