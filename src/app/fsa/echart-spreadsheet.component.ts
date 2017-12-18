@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IEChart, EChart } from './echart';
-import { IDayList, DayList} from './daylist';
-import { ISpreadsheetRow, SpreadsheetRow } from './spreadsheetrow';
-import { IDayCell, DayCell } from './daycell';
+import { IEChart, EChart, IDayList, DayList, ISpreadsheetRow, SpreadsheetRow, IDayCell, DayCell } from './echart';
 import { FSAService } from './fsa.service';
 @Component ({
     selector: "fsa-products",
@@ -27,7 +24,20 @@ export class EChartSpreadsheetComponent implements OnInit {
     }
 
     convertRawData(data: IEChart): void {
-        this.echart=data;
+        //this.echart=data;
+            
+        this.echart=new EChart();
+        this.echart.rows;
+        this.echart.dayList;
+        console.log(this.echart.dayList.length);
+
+        for (var x=1;x<=30;x++)
+        {
+            this.echart.dayList[x] = new DayList();
+            this.echart.dayList[x].dayText = x + "";
+        }
+      
+
     }
 
     ngOnInit(): void {
