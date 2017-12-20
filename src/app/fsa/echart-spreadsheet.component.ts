@@ -52,6 +52,9 @@ export class EChartSpreadsheetComponent implements OnInit {
             dayCell.cellSpan=1;
             dayCell.cellText = "Hello"
             dayCell.cellColor = "";
+            dayCell.popupCaptionText = "popupCaptionText";
+            dayCell.dayListIndex = x;
+            dayCell.containsFlights = true;
             row.dayCells.push(dayCell);
         }
 
