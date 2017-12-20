@@ -16,7 +16,7 @@
                 </div>
             </div>
            
-            <table class="table-bordered" *ngIf='daylist && daylist.length'>
+            <table class="table-hover table-bordered" *ngIf='daylist && daylist.length'>
                 <thead>
                     <tr><th>StudentId</th>
                         <th class="studentName">Name</th>  
@@ -29,7 +29,16 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr *ngFor='let student of rows'>
+                        <td>{{student.studentId}}</td>
+                        <td>{{student.name}}</td>
+                        <td>{{student.position}}</td>
+                        <td>{{student.training}}</td>
+                        <td>{{student.base}}</td>
+                        <td *ngFor='let dayCell of student.dayCells' [class]='dayCell.cellColor' [colSpan]="dayCell.cellSpan">
+                            {{dayCell.cellText}}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     

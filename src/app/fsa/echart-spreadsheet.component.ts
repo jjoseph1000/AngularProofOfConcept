@@ -18,8 +18,8 @@ export class EChartSpreadsheetComponent implements OnInit {
     showImage: boolean = false;
     listFilter: string = 'cart';
     errorMessage: string;
-    rows: ISpreadsheetRow[];
-    daylist: IDayList[];
+    rows: ISpreadsheetRow[] = [];
+    daylist: IDayList[] = [];
     toggleImage(): void {
         this.showImage = !this.showImage;
     }
@@ -27,7 +27,9 @@ export class EChartSpreadsheetComponent implements OnInit {
     convertRawData(data: IEChart): void {
         //this.echart=data;
          
-        this.daylist = [{"dayText": "31"}];
+        var dayList = new DayList();
+        dayList.dayText = 31 + "";
+        this.daylist.push(dayList);
         for (var x=1;x<=30;x++)
         {
             var dayList = new DayList();
@@ -35,7 +37,25 @@ export class EChartSpreadsheetComponent implements OnInit {
             this.daylist.push(dayList);
         }
 
-        this.rows = [{"studentId":"694984","name":"KARKMAN SJ","position":"FO","training":"TTD","base":"DFW","dayCells": []}];
+        
+        var row = new SpreadsheetRow();
+        row.studentId = "694984";
+        row.name = "KARKMAN SJ";
+        row.position = "FO";
+        row.training = "TTD";
+        row.base = "DFW";
+        row.dayCells = [];
+
+        for (var x=0;x<this.daylist.length;x++)
+        {
+            var dayCell = new DayCell();
+            dayCell.cellSpan=1;
+            dayCell.cellText = "Hello"
+            dayCell.cellColor = "";
+            row.dayCells.push(dayCell);
+        }
+
+        this.rows.push(row);
         
     }
 

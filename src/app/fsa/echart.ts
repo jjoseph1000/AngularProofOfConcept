@@ -34,7 +34,7 @@ export class SpreadsheetRow implements ISpreadsheetRow {
     position: string;
     training: string;
     base: string;
-    dayCells: IDayCell[] = [{"cellText":"","cellSpan":0,"cellColor":"","popupCaptionText":"","containsFlights":false,"flights":[]}];
+    dayCells: IDayCell[] = [];
 }
 
 export interface IDayCell {
@@ -52,7 +52,7 @@ export class DayCell implements IDayCell {
     cellColor: string;
     popupCaptionText: string; 
     containsFlights: boolean;   
-    flights: IFlightInformation[];
+    flights: IFlightInformation[] = [];
 }
 
 export interface IFlightInformation {
