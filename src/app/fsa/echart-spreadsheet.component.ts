@@ -18,26 +18,25 @@ export class EChartSpreadsheetComponent implements OnInit {
     showImage: boolean = false;
     listFilter: string = 'cart';
     errorMessage: string;
-    echart: IEChart = new EChart();
+    rows: ISpreadsheetRow[];
+    daylist: IDayList[];
     toggleImage(): void {
         this.showImage = !this.showImage;
     }
 
     convertRawData(data: IEChart): void {
         //this.echart=data;
-            
-        this.echart=new EChart();
-        this.echart.rows;
-        this.echart.dayList;
-        console.log(this.echart.dayList.length);
-
+         
+        this.daylist = [{"dayText": "31"}];
         for (var x=1;x<=30;x++)
         {
-            this.echart.dayList[x] = new DayList();
-            this.echart.dayList[x].dayText = x + "";
+            var dayList = new DayList();
+            dayList.dayText = x + "";
+            this.daylist.push(dayList);
         }
-      
 
+        this.rows = [{"studentId":"694984","name":"KARKMAN SJ","position":"FO","training":"TTD","base":"DFW","dayCells": []}];
+        
     }
 
     ngOnInit(): void {

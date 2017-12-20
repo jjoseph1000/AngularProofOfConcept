@@ -1,3 +1,15 @@
-thead {
-    color: #337ab7
+table {
+    width: 2000px;
+    
+  
+}
+th {
+    width: 90px;
+}
+th.studentName {
+    width: 380px;
+    
+}
+th.dayList {
+    text-align: right;
 }

@@ -1,8 +1,8 @@
-<div class="panel panel-primary">
+<div>
         <div class="panel-heading">
             {{pageTitle}}
         </div>
-        <div class="panel-body">
+        <div>
             <div class="row">
                 <div class="col-md-2">Filter By:</div>
                 <div class="col-md-4">
@@ -16,13 +16,16 @@
                 </div>
             </div>
            
-            <table *ngIf='echart && echart.dayList && echart.dayList.length'>
+            <table class="table-bordered" *ngIf='daylist && daylist.length'>
                 <thead>
-                    <tr><td>start</td>
-                        <td>end</td>                
-                        <td *ngFor='let daylist of echart.dayList'>
-                                {{daylist.dayText}}
-                        </td>
+                    <tr><th>StudentId</th>
+                        <th class="studentName">Name</th>  
+                        <th>Position</th>      
+                        <th>Training</th>
+                        <th>Base</th>        
+                        <th class="dayList" *ngFor='let day of daylist' >
+                                {{day.dayText}}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +34,7 @@
             </table>
     
             <div class="table-responsive">
-                <table class="table" *ngIf='echart && echart.rows && echart.rows.length'>
+                <table class="table-hover table-bordered" *ngIf='rows && rows.length'>
                     <thead>
                         <tr>
                             <th>
@@ -47,7 +50,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor='let student of echart.rows'>
+                        <tr *ngFor='let student of rows'>
                             <td>
                                 <img *ngIf='showImage' [src]='student.imageUrl'
                                  [title]='student.productName | uppercase'
