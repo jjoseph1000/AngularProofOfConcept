@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IEChart, EChart, IDayList, DayList, ISpreadsheetRow, SpreadsheetRow, IDayCell, DayCell, IFlightInformation, FlightInformation } from './echart';
+import { IFSAMonthlyDataset, IStudent, IEventDetail, IFlightInformation } from './fsamonthlydataset';
+import { IDayList, DayList, ISpreadsheetRow, SpreadsheetRow, IDayCell, DayCell, IFlightDisplay, FlightDisplay } from './echart';
 import { FSAService } from './fsa.service';
 @Component ({
     selector: "fsa-products",
@@ -24,18 +25,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         this.showImage = !this.showImage;
     }
 
-    loadFakeData(): void {
-        var dayList = new DayList();
-        dayList.dayText = 31 + "";
-        this.daylist.push(dayList);
-        for (var x=1;x<=30;x++)
-        {
-            var dayList = new DayList();
-            dayList.dayText = x + "";
-            this.daylist.push(dayList);
-        }
-
-        
+    loadFakeData(): void {        
         var row = new SpreadsheetRow();
         row.studentId = "694984";
         row.name = "KARKMAN SJ";
@@ -57,7 +47,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         dayCell.cellColor = "greyCell";
         dayCell.popupCaptionText = "";
         
-        var flightInfo = new FlightInformation();
+        var flightInfo = new FlightDisplay();
         flightInfo.flt = "2437";
         flightInfo.departureStation = "DFW";
         flightInfo.departureTime = "7:10";
@@ -67,7 +57,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2472";
         flightInfo.departureStation = "ATL";
         flightInfo.departureTime = "12:24";
@@ -77,7 +67,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2255";
         flightInfo.departureStation = "CLT";
         flightInfo.departureTime = "14:59";
@@ -94,7 +84,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         dayCell.cellColor = "greyCell";
         dayCell.popupCaptionText = "";
         
-        var flightInfo = new FlightInformation();
+        var flightInfo = new FlightDisplay();
         flightInfo.flt = "2437";
         flightInfo.departureStation = "DFW";
         flightInfo.departureTime = "7:10";
@@ -104,7 +94,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2472";
         flightInfo.departureStation = "ATL";
         flightInfo.departureTime = "12:24";
@@ -114,7 +104,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2255";
         flightInfo.departureStation = "CLT";
         flightInfo.departureTime = "14:59";
@@ -129,7 +119,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         dayCell.cellColor = "greyCell";
         dayCell.popupCaptionText = "";
         
-        var flightInfo = new FlightInformation();
+        var flightInfo = new FlightDisplay();
         flightInfo.flt = "2437";
         flightInfo.departureStation = "DFW";
         flightInfo.departureTime = "7:10";
@@ -139,7 +129,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2472";
         flightInfo.departureStation = "ATL";
         flightInfo.departureTime = "12:24";
@@ -149,7 +139,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2255";
         flightInfo.departureStation = "CLT";
         flightInfo.departureTime = "14:59";
@@ -310,7 +300,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         dayCell.cellColor = "greyCell";
         dayCell.popupCaptionText = "";
 
-        var flightInfo = new FlightInformation();
+        var flightInfo = new FlightDisplay();
         flightInfo.flt = "2437";
         flightInfo.departureStation = "DFW";
         flightInfo.departureTime = "7:10";
@@ -320,7 +310,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2472";
         flightInfo.departureStation = "ATL";
         flightInfo.departureTime = "12:24";
@@ -330,7 +320,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2255";
         flightInfo.departureStation = "CLT";
         flightInfo.departureTime = "14:59";
@@ -347,7 +337,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         dayCell.cellColor = "greyCell";
         dayCell.popupCaptionText = "";
 
-        var flightInfo = new FlightInformation();
+        var flightInfo = new FlightDisplay();
         flightInfo.flt = "2437";
         flightInfo.departureStation = "DFW";
         flightInfo.departureTime = "7:10";
@@ -357,7 +347,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2472";
         flightInfo.departureStation = "ATL";
         flightInfo.departureTime = "12:24";
@@ -367,7 +357,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2255";
         flightInfo.departureStation = "CLT";
         flightInfo.departureTime = "14:59";
@@ -383,7 +373,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         dayCell.cellColor = "greyCell";
         dayCell.popupCaptionText = "";
 
-        var flightInfo = new FlightInformation();
+        var flightInfo = new FlightDisplay();
         flightInfo.flt = "2437";
         flightInfo.departureStation = "DFW";
         flightInfo.departureTime = "7:10";
@@ -393,7 +383,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2472";
         flightInfo.departureStation = "ATL";
         flightInfo.departureTime = "12:24";
@@ -403,7 +393,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
 
-        flightInfo = new FlightInformation();
+        flightInfo = new FlightDisplay();
         flightInfo.flt = "2255";
         flightInfo.departureStation = "CLT";
         flightInfo.departureTime = "14:59";
@@ -517,10 +507,32 @@ export class EChartSpreadsheetComponent implements OnInit {
         this.rows.push(row);
     }
 
-    convertRawData(data: IEChart): void {
-        //this.echart=data;
-         
+    convertRawData(data: IFSAMonthlyDataset): void {
+        console.log(data.startDate);
+       
+        var startDate = new Date(data.startDate);  
+        var endDate = new Date(data.endDate);
+        var currentDate = new Date(data.startDate);  
+
+        while (currentDate <= endDate)
+        {
+            console.log(currentDate);
+            var dayList = new DayList();
+            dayList.dayText = currentDate.getDate() + "";
+            dayList.day = currentDate;
+            this.daylist.push(dayList);
+
+            var dayOfMonth = currentDate.getDate();  
+            currentDate.setDate(dayOfMonth + 1);       
+        }
+              
         this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        
     }
 
     ngOnInit(): void {

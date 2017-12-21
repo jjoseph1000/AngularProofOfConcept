@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IEChart} from './echart';
+import {IFSAMonthlyDataset} from './fsamonthlydataset';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -13,8 +13,8 @@ export class FSAService {
 
     }
     
-    getEChart(): Observable<IEChart> {
-        return this._http.get<IEChart>(this._productUrl)
+    getEChart(): Observable<IFSAMonthlyDataset> {
+        return this._http.get<IFSAMonthlyDataset>(this._productUrl)
                 .do(data => console.log('All: ' + JSON.stringify(data)))
                 .catch(this.handleError);
     }

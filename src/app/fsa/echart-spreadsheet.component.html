@@ -16,72 +16,69 @@
                 </div>
             </div>
 
-
-
-            <table class="table-hover table-bordered echart" *ngIf='daylist && daylist.length'>
-                <thead>
-                    <tr><th>StudentId</th>
-                        <th class="studentName">Name</th>  
-                        <th>Position</th>      
-                        <th>Training</th>
-                        <th>Base</th>        
-                        <th class="dayList" *ngFor='let day of daylist' >
-                                {{day.dayText}}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor='let student of rows'>
-                        <td>{{student.studentId}}</td>
-                        <td>{{student.name}}</td>
-                        <td>{{student.position}}</td>
-                        <td>{{student.training}}</td>
-                        <td>{{student.base}}</td>
-                        <td *ngFor='let dayCell of student.dayCells' [class]='dayCell.cellColor' [colSpan]="dayCell.cellSpan">
-                                <span *ngIf="dayCell.popupCaptionText!='' && dayCell.flights.length == 0" [tooltip]="dayCell.popupCaptionText">
-                                   {{dayCell.cellText}}
-                                </span> 
-                                <div *ngIf="dayCell.flights.length > 0">
-                                        <tooltip-content #flightToolTip >
-                                            <table class="flightTable" >
-                                                <thead>
-                                                    <tr>
-                                                        <th>FLT</th>
-                                                        <th>STA</th>
-                                                        <th>DEP</th>
-                                                        <th>STA</th>
-                                                        <th>ARR</th>
-                                                        <th>ACFLY</th>
-                                                        <th>FLEET</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let flight of dayCell.flights">
-                                                        <td>{{flight.flt}}</td>
-                                                        <td>{{flight.departureStation}}</td>
-                                                        <td>{{flight.departureTime}}</td>
-                                                        <td>{{flight.arrivalStation}}</td>
-                                                        <td>{{flight.arrivalTime}}</td>
-                                                        <td>{{flight.ac_fly}}</td>
-                                                        <td>{{flight.fleet}}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                        </tooltip-content>
-                                
-                                        <span [tooltip]="flightToolTip" class="flightCell"  >
+                        <table class="table-hover table-bordered echart" *ngIf='daylist && daylist.length'>
+                            <thead>
+                                <tr><th>StudentId</th>
+                                    <th class="studentName">Name</th>  
+                                    <th>Position</th>      
+                                    <th>Training</th>
+                                    <th>Base</th>        
+                                    <th class="dayList" *ngFor='let day of daylist' >
+                                            {{day.dayText}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let student of rows'>
+                                    <td>{{student.studentId}}</td>
+                                    <td>{{student.name}}</td>
+                                    <td>{{student.position}}</td>
+                                    <td>{{student.training}}</td>
+                                    <td>{{student.base}}</td>
+                                    <td *ngFor='let dayCell of student.dayCells' [class]='dayCell.cellColor' [colSpan]="dayCell.cellSpan">
+                                            <span *ngIf="dayCell.popupCaptionText!='' && dayCell.flights.length == 0" [tooltip]="dayCell.popupCaptionText">
                                             {{dayCell.cellText}}
-                                        </span>   
-                                </div>                                        
-                                <span *ngIf="dayCell.popupCaptionText=='' && dayCell.flights.length == 0">
-                                    {{dayCell.cellText}}
-                                </span>                                      
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-    
+                                            </span> 
+                                            <div *ngIf="dayCell.flights.length > 0">
+                                                    <tooltip-content #flightToolTip >
+                                                        <table class="flightTable" >
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>FLT</th>
+                                                                    <th>STA</th>
+                                                                    <th>DEP</th>
+                                                                    <th>STA</th>
+                                                                    <th>ARR</th>
+                                                                    <th>ACFLY</th>
+                                                                    <th>FLEET</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let flight of dayCell.flights">
+                                                                    <td>{{flight.flt}}</td>
+                                                                    <td>{{flight.departureStation}}</td>
+                                                                    <td>{{flight.departureTime}}</td>
+                                                                    <td>{{flight.arrivalStation}}</td>
+                                                                    <td>{{flight.arrivalTime}}</td>
+                                                                    <td>{{flight.ac_fly}}</td>
+                                                                    <td>{{flight.fleet}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                    </tooltip-content>
+                                            
+                                                    <span [tooltip]="flightToolTip" class="flightCell"  >
+                                                        {{dayCell.cellText}}
+                                                    </span>   
+                                            </div>                                        
+                                            <span *ngIf="dayCell.popupCaptionText=='' && dayCell.flights.length == 0">
+                                                {{dayCell.cellText}}
+                                            </span>                                      
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
     
         </div>
     

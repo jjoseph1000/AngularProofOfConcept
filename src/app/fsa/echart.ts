@@ -1,22 +1,12 @@
 
-export interface IEChart {
-    testTitle: string
-    dayList: DayList[]
-    rows: SpreadsheetRow[]
-}
-
-export class EChart implements IEChart {
-    testTitle: string;
-    dayList: DayList[] = [{"dayText": ""}];
-    rows: SpreadsheetRow[] = [{"studentId":"","name":"","position":"","training":"","base":"","dayCells": []}];
-}
-
 export interface IDayList {
     dayText: string
+    day: Date
 }
 
 export class DayList implements IDayList {
     dayText: string = "";
+    day: Date
 }
 
 export interface ISpreadsheetRow {
@@ -43,7 +33,7 @@ export interface IDayCell {
     cellColor: string
     popupCaptionText: string 
     dayListIndex: number
-    flights: IFlightInformation[]
+    flights: IFlightDisplay[]
 }
 
 export class DayCell implements IDayCell {
@@ -52,10 +42,10 @@ export class DayCell implements IDayCell {
     cellColor: string;
     popupCaptionText: string; 
     dayListIndex: number;
-    flights: IFlightInformation[] = [];
+    flights: IFlightDisplay[] = [];
 }
 
-export interface IFlightInformation {
+export interface IFlightDisplay {
     flt: string
     departureStation: string
     departureTime: string
@@ -65,7 +55,7 @@ export interface IFlightInformation {
     fleet: string
 }
 
-export class FlightInformation implements IFlightInformation {
+export class FlightDisplay implements IFlightDisplay {
     flt: string
     departureStation: string
     departureTime: string
