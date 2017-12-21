@@ -7,7 +7,7 @@
             "position": "FO",
             "training": "NHD",
             "base": "LGA",
-            "evemts": [
+            "events": [
                 {
                     "startDate":"10/31/2017",
                     "endDate":"11/08/2017",

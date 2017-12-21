@@ -26,7 +26,6 @@ export class EChartSpreadsheetComponent implements OnInit {
     }
 
     convertRawData(data: IFSAMonthlyDataset): void {
-        console.log(data.startDate);
        
         var startDate = new Date(data.startDate);  
         var endDate = new Date(data.endDate);
@@ -34,21 +33,75 @@ export class EChartSpreadsheetComponent implements OnInit {
 
         while (currentDate <= endDate)
         {
-            console.log(currentDate);
             var dayList = new DayList();
             dayList.dayText = currentDate.getDate() + "";
-            dayList.day = currentDate;
+            dayList.day = new Date(currentDate);
             this.daylist.push(dayList);
 
             var dayOfMonth = currentDate.getDate();  
             currentDate.setDate(dayOfMonth + 1);       
         }
-
-        data.students.forEach(function(s){
-            console.log(s.studentId);
+        
+        for (let s of data.students)
+        {
+            var row = new SpreadsheetRow();
+            row.studentId = s.studentId;
+            row.name = s.name;
+            row.position = s.position;
+            row.training = s.training;
+            row.base = s.base;
             
+            for (var x = 0; x < this.daylist.length; x++) {
+                var foundMatchingEvent = false;
+                var d = new Date(this.daylist[x].day.getFullYear(), this.daylist[x].day.getMonth(), this.daylist[x].day.getDate())
+                var dayCell = new DayCell();
+                if (s.events != undefined)
+                {
+                    for (let e of s.events) {
+                        var evStartDate = new Date(e.startDate);
+                        var evStartDateOnly = new Date(evStartDate.getFullYear(), evStartDate.getMonth(), evStartDate.getDate());
+        
+                        var evEndDate = new Date(e.endDate);
+                        var evEndDateOnly = new Date(evEndDate.getFullYear(), evEndDate.getMonth(), evEndDate.getDate())
+        
+                        if (foundMatchingEvent==false)
+                        {
+                            console.log(d + ' - ' + evStartDateOnly);
+                            if (d.getTime()==evStartDateOnly.getTime())
+                            {
+                                foundMatchingEvent = true;
+                                var diff = Math.abs(evStartDateOnly.getTime() - evEndDate.getTime());
+                                var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
+                                var cellSpan = diffDays + 1;
 
-        })
+                                dayCell.cellSpan = cellSpan;
+                                dayCell.cellText = e.text;
+                                dayCell.cellColor = e.eventColor;
+                                dayCell.popupCaptionText = "";
+                                row.dayCells.push(dayCell);    
+            
+                                x+=diffDays;
+                            }    
+                        }
+
+        
+                    }    
+                }
+
+                if (foundMatchingEvent==false)
+                {
+                    dayCell.cellSpan = 1;
+                    dayCell.cellText = ""
+                    dayCell.cellColor = "";
+                    dayCell.popupCaptionText = "";
+                    row.dayCells.push(dayCell);    
+                }
+            }    
+                   
+            this.rows.push(row);                         
+        }
+
+
               
         this.loadFakeData();
         this.loadFakeData();
