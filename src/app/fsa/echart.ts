@@ -42,7 +42,6 @@ export interface IDayCell {
     cellSpan: number
     cellColor: string
     popupCaptionText: string 
-    containsFlights: boolean   
     dayListIndex: number
     flights: IFlightInformation[]
 }
@@ -52,7 +51,6 @@ export class DayCell implements IDayCell {
     cellSpan: number;
     cellColor: string;
     popupCaptionText: string; 
-    containsFlights: boolean;   
     dayListIndex: number;
     flights: IFlightInformation[] = [];
 }
