@@ -25,6 +25,41 @@ export class EChartSpreadsheetComponent implements OnInit {
         this.showImage = !this.showImage;
     }
 
+    convertRawData(data: IFSAMonthlyDataset): void {
+        console.log(data.startDate);
+       
+        var startDate = new Date(data.startDate);  
+        var endDate = new Date(data.endDate);
+        var currentDate = new Date(data.startDate);  
+
+        while (currentDate <= endDate)
+        {
+            console.log(currentDate);
+            var dayList = new DayList();
+            dayList.dayText = currentDate.getDate() + "";
+            dayList.day = currentDate;
+            this.daylist.push(dayList);
+
+            var dayOfMonth = currentDate.getDate();  
+            currentDate.setDate(dayOfMonth + 1);       
+        }
+
+        data.students.forEach(function(s){
+            console.log(s.studentId);
+            
+
+        })
+              
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        
+    }
+
+
     loadFakeData(): void {        
         var row = new SpreadsheetRow();
         row.studentId = "694984";
@@ -505,34 +540,6 @@ export class EChartSpreadsheetComponent implements OnInit {
             row.dayCells.push(dayCell);
         }
         this.rows.push(row);
-    }
-
-    convertRawData(data: IFSAMonthlyDataset): void {
-        console.log(data.startDate);
-       
-        var startDate = new Date(data.startDate);  
-        var endDate = new Date(data.endDate);
-        var currentDate = new Date(data.startDate);  
-
-        while (currentDate <= endDate)
-        {
-            console.log(currentDate);
-            var dayList = new DayList();
-            dayList.dayText = currentDate.getDate() + "";
-            dayList.day = currentDate;
-            this.daylist.push(dayList);
-
-            var dayOfMonth = currentDate.getDate();  
-            currentDate.setDate(dayOfMonth + 1);       
-        }
-              
-        this.loadFakeData();
-        this.loadFakeData();
-        this.loadFakeData();
-        this.loadFakeData();
-        this.loadFakeData();
-        this.loadFakeData();
-        
     }
 
     ngOnInit(): void {

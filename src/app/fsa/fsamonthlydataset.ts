@@ -21,6 +21,7 @@ export interface IEventDetail {
     eventColor: string
     text: string
     secondRowText: string
+    secondRowPopup: string
     flights: IFlightInformation[]
 }
 
