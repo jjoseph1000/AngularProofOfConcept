@@ -281,6 +281,16 @@ export class EChartSpreadsheetComponent implements OnInit {
         {
             dayCell = new DayCell();
             dayCell.cellSpan=1;
+            dayCell.cellText = "DV"
+            dayCell.cellColor = "greenCell";
+            dayCell.popupCaptionText = "";
+            row.dayCells.push(dayCell);
+        }
+
+        for (var x=1;x<=2;x++)
+        {
+            dayCell = new DayCell();
+            dayCell.cellSpan=1;
             dayCell.cellText = ""
             dayCell.cellColor = "";
             dayCell.popupCaptionText = "";
@@ -366,7 +376,8 @@ export class EChartSpreadsheetComponent implements OnInit {
         flightInfo.ac_fly = "1.3";
         flightInfo.fleet = "38A";
         dayCell.flights.push(flightInfo);
-        row.dayCells.push(dayCell);        dayCell = new DayCell();
+        row.dayCells.push(dayCell);        
+        dayCell = new DayCell();
         dayCell.cellSpan=1;
         dayCell.cellText = "9167"
         dayCell.cellColor = "greyCell";
@@ -403,7 +414,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         dayCell.flights.push(flightInfo);
         row.dayCells.push(dayCell);
 
-        for (var x=14;x<=25;x++)
+        for (var x=14;x<=23;x++)
         {
             dayCell = new DayCell();
             dayCell.cellSpan=1;
