@@ -71,12 +71,42 @@ export class EChartSpreadsheetComponent implements OnInit {
         
                         if (foundMatchingEvent==false)
                         {
-                            if (d.getTime()==evStartDateOnly.getTime())
+                            var compEventStartDate = new Date();
+                            var compEventEndDate = new Date();
+
+                            if ((x==0&&evStartDateOnly.getTime()<startDate.getTime()
+                                    &&startDate.getTime()<=evEndDateOnly.getTime()
+                                    &&evEndDateOnly.getTime()<=endDate.getTime()
+                                ) 
+                                || (d.getTime()==evStartDateOnly.getTime())                                
+                            )
                             {
+                                if (d.getTime()==evStartDateOnly.getTime())
+                                {
+                                    compEventStartDate = new Date(evStartDateOnly);
+
+                                    if (endDate.getTime() < evEndDateOnly.getTime())
+                                    {
+                                        compEventEndDate = new Date(endDate);
+                                    }
+                                    else
+                                    {
+                                        compEventEndDate = new Date(evEndDateOnly);
+                                    }
+                                }
+                                else if ((x==0&&evStartDateOnly.getTime()<startDate.getTime()
+                                    &&startDate.getTime()<=evEndDateOnly.getTime()
+                                    &&evEndDateOnly.getTime()<=endDate.getTime()
+                                ))
+                                {
+                                    compEventStartDate = new Date(startDate);
+                                    compEventEndDate = new Date(evEndDateOnly);
+                                }
+
                                 foundMatchingEvent = true;
-                                var diff = Math.abs(evStartDateOnly.getTime() - evEndDateOnly.getTime());
+                                var diff = Math.abs(compEventStartDate.getTime() - compEventEndDate.getTime());
                                 var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
-                                var diffDaysFinal = (diffDays==0)?0:diffDays-1;
+                                var diffDaysFinal = (x==0)?((diffDays==0)?0:diffDays-1):diffDays;
                                 var cellSpan = diffDaysFinal+1;
 
                                 dayCell.cellSpan = cellSpan;
@@ -119,7 +149,8 @@ export class EChartSpreadsheetComponent implements OnInit {
                                 row.dayCells.push(dayCell);    
             
                                 x+=diffDaysFinal;
-                            }    
+
+                            }  
                         }        
                     }    
                 }

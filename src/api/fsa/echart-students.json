@@ -210,7 +210,12 @@
                     ],
                     "secondRowText":"PR",
                     "secondRowPopup":"MIA"
-                }                   
+                },
+                {
+                    "startDate":"11/28/2017",
+                    "endDate":"12/01/2017",
+                    "eventColor":"blue"
+                }                
             ]
         }
     ],
