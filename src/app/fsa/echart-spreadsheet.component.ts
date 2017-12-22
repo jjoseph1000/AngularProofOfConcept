@@ -74,9 +74,10 @@ export class EChartSpreadsheetComponent implements OnInit {
                             if (d.getTime()==evStartDateOnly.getTime())
                             {
                                 foundMatchingEvent = true;
-                                var diff = Math.abs(evStartDateOnly.getTime() - evEndDate.getTime());
+                                var diff = Math.abs(evStartDateOnly.getTime() - evEndDateOnly.getTime());
                                 var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
-                                var cellSpan = diffDays + 1;
+                                var diffDaysFinal = (diffDays==0)?0:diffDays-1;
+                                var cellSpan = diffDaysFinal+1;
 
                                 dayCell.cellSpan = cellSpan;
                                 dayCell.cellText = e.text;
@@ -117,7 +118,7 @@ export class EChartSpreadsheetComponent implements OnInit {
 
                                 row.dayCells.push(dayCell);    
             
-                                x+=diffDays;
+                                x+=diffDaysFinal;
                             }    
                         }        
                     }    

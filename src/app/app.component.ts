@@ -6,7 +6,7 @@ import { FSAService } from './fsa/fsa.service';
 @Component({
   selector: 'pm-root',
   template: `
-    <div><h1>{{pageTitle}}</h1>
+    <div><h1></h1>
       <fsa-products></fsa-products>
     </div>
   `,
