@@ -12,17 +12,17 @@ export interface IStudent {
     position: string;
     training: string;
     base: string;
-    events: IEventDetail[]
+    events: IEventData[]
 }
 
-export interface IEventDetail {
-    startDate: Date
-    endDate: Date
-    eventColor: string
-    text: string
-    secondRowText: string
-    secondRowPopup: string
-    flights: IFlightInformation[]
+export interface IEventData {
+    startDate: Date;
+    endDate: Date;
+    eventColor: string;
+    text: string;
+    secondRowText: string;
+    secondRowPopup: string;
+    flights: IFlightInformation[];
 }
 
 export interface IFlightInformation {

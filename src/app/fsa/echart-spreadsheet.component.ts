@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IFSAMonthlyDataset, IStudent, IEventDetail, IFlightInformation } from './fsamonthlydataset';
+import { IFSAMonthlyDataset, IStudent, IEventData, IFlightInformation } from './fsamonthlydataset';
 import { IDayList, DayList, ISpreadsheetRow, SpreadsheetRow, IDayCell, DayCell, IFlightDisplay, FlightDisplay } from './echart';
 import { FSAService } from './fsa.service';
 @Component ({
@@ -41,9 +41,14 @@ export class EChartSpreadsheetComponent implements OnInit {
             var dayOfMonth = currentDate.getDate();  
             currentDate.setDate(dayOfMonth + 1);       
         }
-        
+        /*
+        Each Student will generate 4 rows on the spreadsheet.  The first row will contian the
+        bulk of the information.  The second row will contain the secondary information associated with
+        flight details.  The last two rows will be blank.
+        */
         for (let s of data.students)
         {
+            //First Row
             var row = new SpreadsheetRow();
             row.studentId = s.studentId;
             row.name = s.name;
@@ -66,7 +71,6 @@ export class EChartSpreadsheetComponent implements OnInit {
         
                         if (foundMatchingEvent==false)
                         {
-                            console.log(d + ' - ' + evStartDateOnly);
                             if (d.getTime()==evStartDateOnly.getTime())
                             {
                                 foundMatchingEvent = true;
@@ -76,15 +80,46 @@ export class EChartSpreadsheetComponent implements OnInit {
 
                                 dayCell.cellSpan = cellSpan;
                                 dayCell.cellText = e.text;
-                                dayCell.cellColor = e.eventColor;
-                                dayCell.popupCaptionText = "";
+
+                                if (e.flights != undefined && e.flights.length > 0)
+                                {
+                                    for (let f of e.flights)
+                                    {
+                                        var flightInfo = new FlightDisplay();
+                                        flightInfo.flt = f.flt;
+                                        flightInfo.departureStation = f.departureStation;
+                                        flightInfo.departureTime = f.departureTime;
+                                        flightInfo.arrivalStation = f.arrivalStation;
+                                        flightInfo.arrivalTime = f.arrivalTime;
+                                        flightInfo.ac_fly = f.ac_fly;
+                                        flightInfo.fleet = f.fleet;
+                                        dayCell.flights.push(flightInfo);                                
+                                    }
+                                    dayCell.cellColor = "greyCell";
+                                }
+                                else
+                                {
+                                    switch (e.eventColor)
+                                    {
+                                        case "orange":
+                                            dayCell.cellColor = "orangeCell";
+                                            break;
+                                        case "blue":
+                                            dayCell.cellColor = "blueCell";
+                                            break;
+                                        case "green":
+                                            dayCell.cellColor = "greenCell";
+                                            break;         
+                                    }
+                                }
+
+
+
                                 row.dayCells.push(dayCell);    
             
                                 x+=diffDays;
                             }    
-                        }
-
-        
+                        }        
                     }    
                 }
 
@@ -98,7 +133,86 @@ export class EChartSpreadsheetComponent implements OnInit {
                 }
             }    
                    
-            this.rows.push(row);                         
+            this.rows.push(row);     
+            
+            //Second Row
+            row = new SpreadsheetRow();
+            row.studentId = "-";
+            row.name = "";
+            row.position = "";
+            row.training = "";
+            row.base = "";
+            row.dayCells = [];
+            
+            for (var x = 0; x < this.daylist.length; x++) {
+                var foundMatchingEvent = false;
+                var d = new Date(this.daylist[x].day.getFullYear(), this.daylist[x].day.getMonth(), this.daylist[x].day.getDate())
+                var dayCell = new DayCell();
+                if (s.events != undefined)
+                {
+                    for (let e of s.events) {
+                        var evStartDate = new Date(e.startDate);
+                        var evStartDateOnly = new Date(evStartDate.getFullYear(), evStartDate.getMonth(), evStartDate.getDate());
+        
+                        var evEndDate = new Date(e.endDate);
+                        var evEndDateOnly = new Date(evEndDate.getFullYear(), evEndDate.getMonth(), evEndDate.getDate())
+        
+                        if (foundMatchingEvent==false)
+                        {
+                            if (d.getTime()==evStartDateOnly.getTime() && e.flights != undefined && e.flights.length > 0)
+                            {
+                                foundMatchingEvent = true;
+                                var diff = Math.abs(evStartDateOnly.getTime() - evEndDate.getTime());
+                                var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
+                                var cellSpan = diffDays + 1;
+
+                                dayCell.cellSpan = cellSpan;
+                                dayCell.cellText = e.secondRowText;
+                                console.log(e);
+                                dayCell.popupCaptionText = e.secondRowText; 
+                                dayCell.popupCaptionText = e.secondRowPopup;   
+
+                                row.dayCells.push(dayCell);    
+            
+                                x+=diffDays;
+                            }    
+                        }        
+                    }    
+                }
+
+                if (foundMatchingEvent==false)
+                {
+                    dayCell.cellSpan = 1;
+                    dayCell.cellText = ""
+                    dayCell.cellColor = "";
+                    dayCell.popupCaptionText = "";
+                    row.dayCells.push(dayCell);    
+                }
+            }    
+            this.rows.push(row);
+
+            //Third & Forth Row which are blank
+            for (var r=1;r<=2;r++)
+            {
+                row = new SpreadsheetRow();
+                row.studentId = "-";
+                row.name = "";
+                row.position = "";
+                row.training = "";
+                row.base = "";
+                row.dayCells = [];
+                
+                for (var x=1;x<=this.daylist.length;x++)
+                {
+                    dayCell = new DayCell();
+                    dayCell.cellSpan=1;
+                    dayCell.cellText = ""
+                    dayCell.cellColor = "";
+                    dayCell.popupCaptionText = "";
+                    row.dayCells.push(dayCell);
+                }
+                this.rows.push(row);
+            }
         }
 
 
