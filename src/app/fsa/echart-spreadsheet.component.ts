@@ -49,27 +49,70 @@ export class EChartSpreadsheetComponent implements OnInit {
         for (let s of data.students)
         {
             //First Row
-            var row = new SpreadsheetRow();
-            row.studentId = s.studentId;
-            row.name = s.name;
-            row.position = s.position;
-            row.training = s.training;
-            row.base = s.base;
+            this.loadStudentContent(startDate,endDate,s,false);
             
-            for (var x = 0; x < this.daylist.length; x++) {
-                var foundMatchingEvent = false;
-                var d = new Date(this.daylist[x].day.getFullYear(), this.daylist[x].day.getMonth(), this.daylist[x].day.getDate())
-                var dayCell = new DayCell();
-                if (s.events != undefined)
+            //Second Row
+            this.loadStudentContent(startDate,endDate,s,true);
+            
+            //Third & Forth Row which are blank
+            for (var r=1;r<=2;r++)
+            {
+                var row = new SpreadsheetRow();
+                row.studentId = "-";
+                row.name = "";
+                row.position = "";
+                row.training = "";
+                row.base = "";
+                row.dayCells = [];
+                
+                for (var x=1;x<=this.daylist.length;x++)
                 {
-                    for (let e of s.events) {
-                        var evStartDate = new Date(e.startDate);
-                        var evStartDateOnly = new Date(evStartDate.getFullYear(), evStartDate.getMonth(), evStartDate.getDate());
+                    var dayCell = new DayCell();
+                    dayCell.cellSpan=1;
+                    dayCell.cellText = ""
+                    dayCell.cellColor = "";
+                    dayCell.popupCaptionText = "";
+                    row.dayCells.push(dayCell);
+                }
+                this.rows.push(row);
+            }
+        }
+
+
+              
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
+        this.loadFakeData();
         
-                        var evEndDate = new Date(e.endDate);
-                        var evEndDateOnly = new Date(evEndDate.getFullYear(), evEndDate.getMonth(), evEndDate.getDate())
+    }
+
+    loadStudentContent(startDate: Date, endDate: Date, s: IStudent, isSecondRow: boolean): void {
+        var row = new SpreadsheetRow();
+        row.studentId = (isSecondRow)?"-":s.studentId;
+        row.name = (isSecondRow)?"":s.name;
+        row.position = (isSecondRow)?"":s.position;
+        row.training = (isSecondRow)?"":s.training;
+        row.base = (isSecondRow)?"":s.base;
         
-                        if (foundMatchingEvent==false)
+        for (var x = 0; x < this.daylist.length; x++) {
+            var foundMatchingEvent = false;
+            var d = new Date(this.daylist[x].day.getFullYear(), this.daylist[x].day.getMonth(), this.daylist[x].day.getDate())
+            var dayCell = new DayCell();
+            if (s.events != undefined)
+            {
+                for (let e of s.events) {
+                    var evStartDate = new Date(e.startDate);
+                    var evStartDateOnly = new Date(evStartDate.getFullYear(), evStartDate.getMonth(), evStartDate.getDate());
+    
+                    var evEndDate = new Date(e.endDate);
+                    var evEndDateOnly = new Date(evEndDate.getFullYear(), evEndDate.getMonth(), evEndDate.getDate())
+    
+                    if (foundMatchingEvent==false)
+                    {
+                        if (isSecondRow==false || (isSecondRow && e.flights != undefined && e.flights.length > 0))
                         {
                             var compEventStartDate = new Date();
                             var compEventEndDate = new Date();
@@ -110,154 +153,71 @@ export class EChartSpreadsheetComponent implements OnInit {
                                 var cellSpan = diffDaysFinal+1;
 
                                 dayCell.cellSpan = cellSpan;
-                                dayCell.cellText = e.text;
 
-                                if (e.flights != undefined && e.flights.length > 0)
+                                if (isSecondRow)
                                 {
-                                    for (let f of e.flights)
-                                    {
-                                        var flightInfo = new FlightDisplay();
-                                        flightInfo.flt = f.flt;
-                                        flightInfo.departureStation = f.departureStation;
-                                        flightInfo.departureTime = f.departureTime;
-                                        flightInfo.arrivalStation = f.arrivalStation;
-                                        flightInfo.arrivalTime = f.arrivalTime;
-                                        flightInfo.ac_fly = f.ac_fly;
-                                        flightInfo.fleet = f.fleet;
-                                        dayCell.flights.push(flightInfo);                                
-                                    }
-                                    dayCell.cellColor = "greyCell";
+                                    dayCell.cellText = e.secondRowText;
+                                    dayCell.popupCaptionText = e.secondRowPopup;
                                 }
                                 else
                                 {
-                                    switch (e.eventColor)
+                                    dayCell.cellText = e.text;
+
+                                    if (e.flights != undefined && e.flights.length > 0)
                                     {
-                                        case "orange":
-                                            dayCell.cellColor = "orangeCell";
-                                            break;
-                                        case "blue":
-                                            dayCell.cellColor = "blueCell";
-                                            break;
-                                        case "green":
-                                            dayCell.cellColor = "greenCell";
-                                            break;         
+                                        for (let f of e.flights)
+                                        {
+                                            var flightInfo = new FlightDisplay();
+                                            flightInfo.flt = f.flt;
+                                            flightInfo.departureStation = f.departureStation;
+                                            flightInfo.departureTime = f.departureTime;
+                                            flightInfo.arrivalStation = f.arrivalStation;
+                                            flightInfo.arrivalTime = f.arrivalTime;
+                                            flightInfo.ac_fly = f.ac_fly;
+                                            flightInfo.fleet = f.fleet;
+                                            dayCell.flights.push(flightInfo);                                
+                                        }
+                                        dayCell.cellColor = "greyCell";
+                                    }
+                                    else
+                                    {
+                                        switch (e.eventColor)
+                                        {
+                                            case "orange":
+                                                dayCell.cellColor = "orangeCell";
+                                                break;
+                                            case "blue":
+                                                dayCell.cellColor = "blueCell";
+                                                break;
+                                            case "green":
+                                                dayCell.cellColor = "greenCell";
+                                                break;         
+                                        }
                                     }
                                 }
-
-
 
                                 row.dayCells.push(dayCell);    
             
                                 x+=diffDaysFinal;
 
                             }  
-                        }        
-                    }    
-                }
-
-                if (foundMatchingEvent==false)
-                {
-                    dayCell.cellSpan = 1;
-                    dayCell.cellText = ""
-                    dayCell.cellColor = "";
-                    dayCell.popupCaptionText = "";
-                    row.dayCells.push(dayCell);    
-                }
-            }    
-                   
-            this.rows.push(row);     
-            
-            //Second Row
-            row = new SpreadsheetRow();
-            row.studentId = "-";
-            row.name = "";
-            row.position = "";
-            row.training = "";
-            row.base = "";
-            row.dayCells = [];
-            
-            for (var x = 0; x < this.daylist.length; x++) {
-                var foundMatchingEvent = false;
-                var d = new Date(this.daylist[x].day.getFullYear(), this.daylist[x].day.getMonth(), this.daylist[x].day.getDate())
-                var dayCell = new DayCell();
-                if (s.events != undefined)
-                {
-                    for (let e of s.events) {
-                        var evStartDate = new Date(e.startDate);
-                        var evStartDateOnly = new Date(evStartDate.getFullYear(), evStartDate.getMonth(), evStartDate.getDate());
-        
-                        var evEndDate = new Date(e.endDate);
-                        var evEndDateOnly = new Date(evEndDate.getFullYear(), evEndDate.getMonth(), evEndDate.getDate())
-        
-                        if (foundMatchingEvent==false)
-                        {
-                            if (d.getTime()==evStartDateOnly.getTime() && e.flights != undefined && e.flights.length > 0)
-                            {
-                                foundMatchingEvent = true;
-                                var diff = Math.abs(evStartDateOnly.getTime() - evEndDate.getTime());
-                                var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
-                                var cellSpan = diffDays + 1;
-
-                                dayCell.cellSpan = cellSpan;
-                                dayCell.cellText = e.secondRowText;
-                                console.log(e);
-                                dayCell.popupCaptionText = e.secondRowText; 
-                                dayCell.popupCaptionText = e.secondRowPopup;   
-
-                                row.dayCells.push(dayCell);    
-            
-                                x+=diffDays;
-                            }    
-                        }        
-                    }    
-                }
-
-                if (foundMatchingEvent==false)
-                {
-                    dayCell.cellSpan = 1;
-                    dayCell.cellText = ""
-                    dayCell.cellColor = "";
-                    dayCell.popupCaptionText = "";
-                    row.dayCells.push(dayCell);    
-                }
-            }    
-            this.rows.push(row);
-
-            //Third & Forth Row which are blank
-            for (var r=1;r<=2;r++)
-            {
-                row = new SpreadsheetRow();
-                row.studentId = "-";
-                row.name = "";
-                row.position = "";
-                row.training = "";
-                row.base = "";
-                row.dayCells = [];
-                
-                for (var x=1;x<=this.daylist.length;x++)
-                {
-                    dayCell = new DayCell();
-                    dayCell.cellSpan=1;
-                    dayCell.cellText = ""
-                    dayCell.cellColor = "";
-                    dayCell.popupCaptionText = "";
-                    row.dayCells.push(dayCell);
-                }
-                this.rows.push(row);
+                        }
+                    }        
+                }    
             }
-        }
 
-
-              
-        this.loadFakeData();
-        this.loadFakeData();
-        this.loadFakeData();
-        this.loadFakeData();
-        this.loadFakeData();
-        this.loadFakeData();
-        
+            if (foundMatchingEvent==false)
+            {
+                dayCell.cellSpan = 1;
+                dayCell.cellText = ""
+                dayCell.cellColor = "";
+                dayCell.popupCaptionText = "";
+                row.dayCells.push(dayCell);    
+            }
+        }    
+               
+        this.rows.push(row);     
     }
-
 
     loadFakeData(): void {        
         var row = new SpreadsheetRow();
