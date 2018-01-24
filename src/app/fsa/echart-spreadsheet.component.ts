@@ -79,7 +79,7 @@ export class EChartSpreadsheetComponent implements OnInit {
         }
 
 
-              
+             
         this.loadFakeData();
         this.loadFakeData();
         this.loadFakeData();
