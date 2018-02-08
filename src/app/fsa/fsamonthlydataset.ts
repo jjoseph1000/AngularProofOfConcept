@@ -20,8 +20,8 @@ export interface IEventData {
     endDate: Date;
     eventColor: string;
     text: string;
-    secondRowText: string;
-    secondRowPopup: string;
+    chkAirmanInitials: string;
+    chkAirmanBase: string;
     flights: IFlightInformation[];
 }
 

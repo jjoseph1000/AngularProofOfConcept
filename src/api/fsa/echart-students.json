@@ -58,8 +58,8 @@
                             "fleet":"38A"
                         }                        
                     ],
-                    "secondRowText":"GWM",
-                    "secondRowPopup":"LGA"
+                    "chkAirmanInitials":"GWM",
+                    "chkAirmanBase":"LGA"
                 },
                 {
                     "startDate":"11/13/2017",
@@ -94,8 +94,8 @@
                             "fleet":"38A"
                         }                        
                     ],
-                    "secondRowText":"GWM",
-                    "secondRowPopup":"LGA"
+                    "chkAirmanInitials":"GWM",
+                    "chkAirmanBase":"LGA"
                 },
                 {
                     "startDate":"11/14/2017",
@@ -130,8 +130,8 @@
                             "fleet":"38A"
                         }                        
                     ],
-                    "secondRowText":"GWM",
-                    "secondRowPopup":"LGA"
+                    "chkAirmanInitials":"GWM",
+                    "chkAirmanBase":"LGA"
                 },
                 {
                     "startDate":"11/17/2017",
@@ -172,8 +172,8 @@
                             "fleet":"38A"
                         }                        
                     ],
-                    "secondRowText":"PR",
-                    "secondRowPopup":"MIA"
+                    "chkAirmanInitials":"PR",
+                    "chkAirmanBase":"MIA"
                 },                
                 {
                     "startDate":"11/19/2017",
@@ -208,8 +208,8 @@
                             "fleet":"38A"
                         }                        
                     ],
-                    "secondRowText":"PR",
-                    "secondRowPopup":"MIA"
+                    "chkAirmanInitials":"PR",
+                    "chkAirmanBase":"MIA"
                 },
                 {
                     "startDate":"11/28/2017",

@@ -156,8 +156,8 @@ export class EChartSpreadsheetComponent implements OnInit {
 
                                 if (isSecondRow)
                                 {
-                                    dayCell.cellText = e.secondRowText;
-                                    dayCell.popupCaptionText = e.secondRowPopup;
+                                    dayCell.cellText = e.chkAirmanInitials;
+                                    dayCell.popupCaptionText = e.chkAirmanBase;
                                 }
                                 else
                                 {
